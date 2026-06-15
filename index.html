@@ -251,7 +251,6 @@
     <div id="main-app" class="hidden">
         <!-- TOP NAVIGATION -->
         <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div class="max-w-screen-2xl mx-auto">
             <div class="px-6 py-3 flex items-center justify-between">
                 <div class="flex items-center gap-x-4">
@@ -284,19 +283,19 @@
                     <!-- Notifications -->
                     <div class="relative">
                         <button onclick="showNotifications()" 
-                                class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-2xl transition-colors">
+                                class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-2xl transition-colors active:scale-95">
                             <i class="fa-solid fa-bell text-xl"></i>
                         </button>
                         <div class="absolute -top-0.5 -right-0.5 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center ring-2 ring-white">4</div>
                     </div>
 
-                    <!-- User Profile -->
-                    <div class="flex items-center gap-x-3 pl-3 border-l">
-                        <div class="text-right">
+                    <!-- User Profile (compact on mobile, clickable for logout) -->
+                    <div class="flex items-center gap-x-2 lg:gap-x-3 pl-2 lg:pl-3 border-l cursor-pointer active:scale-95" onclick="logout()">
+                        <div class="hidden md:block text-right">
                             <div class="text-sm font-semibold text-gray-800">Ir. Bambang Sutrisno, M.Sc.</div>
-                            <div class="text-xs text-emerald-700">Kepala Divisi Impor &amp; Gudang • Jakarta</div>
+                            <div class="text-xs text-emerald-700">Kepala Divisi • Jakarta</div>
                         </div>
-                        <div class="w-9 h-9 bg-emerald-700 rounded-2xl overflow-hidden ring-2 ring-emerald-200">
+                        <div class="w-9 h-9 bg-emerald-700 rounded-2xl overflow-hidden ring-2 ring-emerald-200 flex-shrink-0">
                             <img src="https://i.pravatar.cc/36?img=68" alt="User Avatar" class="w-full h-full object-cover">
                         </div>
                     </div>
@@ -352,7 +351,7 @@
         </div>
 
         <!-- MAIN CONTENT AREA -->
-        <div class="flex-1 p-6 max-w-[1280px]">
+        <div class="flex-1 p-6 pb-24 lg:pb-6 max-w-[1280px]">
             
             <!-- ========== PAGE: BERANDA ========== -->
             <div id="page-beranda" class="page-content">
@@ -546,7 +545,8 @@
                         </div>
                     </div>
                     
-                    <table class="w-full data-table text-sm">
+                    <div class="overflow-x-auto">
+                    <table class="w-full data-table text-sm min-w-[600px]">
                         <thead>
                             <tr>
                                 <th class="text-left px-6 py-3 font-medium">Nama Dokumen</th>
@@ -561,6 +561,7 @@
                             <!-- Populated dynamically via JS -->
                         </tbody>
                     </table>
+                    </div>
                     
                     <div class="px-6 py-4 bg-gray-50 border-t flex items-center justify-between text-xs">
                         <div class="text-gray-500">Menampilkan 6 dari 6 dokumen</div>
@@ -639,7 +640,8 @@
                         <div class="text-xs px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full font-medium">5 Truk • Semua Selesai</div>
                     </div>
                     
-                    <table class="w-full text-sm">
+                    <div class="overflow-x-auto">
+                    <table class="w-full text-sm min-w-[500px]">
                         <thead class="text-xs text-gray-500">
                             <tr class="border-b">
                                 <th class="text-left py-2 font-medium">Jenis Komoditas</th>
@@ -653,6 +655,7 @@
                             <!-- JS populated -->
                         </tbody>
                     </table>
+                    </div>
                 </div>
 
                 <!-- Dwelling Time Chart -->
@@ -857,6 +860,32 @@
         </div>
     </div>
 
+    <!-- ==================== MOBILE BOTTOM NAVIGATION ==================== -->
+    <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-[90] shadow-lg">
+        <div class="grid grid-cols-5 text-center text-xs">
+            <div onclick="switchPage('beranda'); highlightMobileNav(this)" class="mobile-nav-item py-3 active text-emerald-700">
+                <i class="fa-solid fa-home text-xl mb-0.5 block"></i>
+                <span class="font-medium">Beranda</span>
+            </div>
+            <div onclick="switchPage('pelacakan'); highlightMobileNav(this)" class="mobile-nav-item py-3 text-gray-600">
+                <i class="fa-solid fa-file-import text-xl mb-0.5 block"></i>
+                <span class="font-medium">Dokumen</span>
+            </div>
+            <div onclick="switchPage('gudang'); highlightMobileNav(this)" class="mobile-nav-item py-3 text-gray-600">
+                <i class="fa-solid fa-warehouse text-xl mb-0.5 block"></i>
+                <span class="font-medium">Gudang</span>
+            </div>
+            <div onclick="switchPage('alur'); highlightMobileNav(this)" class="mobile-nav-item py-3 text-gray-600">
+                <i class="fa-solid fa-project-diagram text-xl mb-0.5 block"></i>
+                <span class="font-medium">Alur</span>
+            </div>
+            <div onclick="switchPage('kargo'); highlightMobileNav(this)" class="mobile-nav-item py-3 text-gray-600">
+                <i class="fa-solid fa-truck-loading text-xl mb-0.5 block"></i>
+                <span class="font-medium">Kargo</span>
+            </div>
+        </div>
+    </div>
+
     <!-- MODALS -->
     <!-- Detail DO Modal -->
     <div id="detail-modal" onclick="if (event.target.id === 'detail-modal') hideDetailModal()" class="hidden fixed inset-0 bg-black/60 z-[100] flex items-center justify-center">
@@ -941,6 +970,38 @@
             if (page === 'laporan' && !window.performanceChartInstance) {
                 setTimeout(initPerformanceChart, 150);
             }
+            
+            // Highlight mobile bottom nav
+            highlightMobileNavByPage(page);
+        }
+        
+        function highlightMobileNav(element) {
+            // Remove active from all mobile nav items
+            document.querySelectorAll('.mobile-nav-item').forEach(el => {
+                el.classList.remove('text-emerald-700', 'active');
+                el.classList.add('text-gray-600');
+            });
+            // Add active to clicked
+            element.classList.remove('text-gray-600');
+            element.classList.add('text-emerald-700', 'active');
+        }
+        
+        function highlightMobileNavByPage(page) {
+            document.querySelectorAll('.mobile-nav-item').forEach(el => {
+                el.classList.remove('text-emerald-700', 'active');
+                el.classList.add('text-gray-600');
+                
+                // Match page name to icon text
+                const text = el.textContent.toLowerCase();
+                if ((page === 'beranda' && text.includes('beranda')) ||
+                    (page === 'pelacakan' && text.includes('dokumen')) ||
+                    (page === 'gudang' && text.includes('gudang')) ||
+                    (page === 'alur' && text.includes('alur')) ||
+                    (page === 'kargo' && text.includes('kargo'))) {
+                    el.classList.remove('text-gray-600');
+                    el.classList.add('text-emerald-700', 'active');
+                }
+            });
         }
 
         // Timeline data
